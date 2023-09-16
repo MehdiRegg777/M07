@@ -8,6 +8,7 @@
 
 <?php
 
+
 $filas = 10;
 $columnas = 10;
 $tablero = array_fill(0, $filas, array_fill(0, $columnas, 0));
@@ -26,18 +27,24 @@ function colocarBarco(&$tablero, $barco, $filas, $columnas)
     $longitud = $barco['longitud'];
     $posicion_vertical = rand(0, 1) === 1; // Aleatoriamente vertical u horizontal
 
+    $max_intentos = 100; // Número máximo de intentos para encontrar una posición válida
+    $intentos = 0;
+
     do {
         $inicio_fila = rand(0, $filas - 1);
         $inicio_columna = rand(0, $columnas - 1);
-    } while (!esPosicionValida($tablero, $inicio_fila, $inicio_columna, $longitud, $posicion_vertical));
+        $intentos++;
+    } while (!esPosicionValida($tablero, $inicio_fila, $inicio_columna, $longitud, $posicion_vertical) && $intentos < $max_intentos);
 
-    if ($posicion_vertical) {
-        for ($i = $inicio_fila; $i < $inicio_fila + $longitud; $i++) {
-            $tablero[$i][$inicio_columna] = $barco['codigo'];
-        }
-    } else {
-        for ($j = $inicio_columna; $j < $inicio_columna + $longitud; $j++) {
-            $tablero[$inicio_fila][$j] = $barco['codigo'];
+    if ($intentos < $max_intentos) {
+        if ($posicion_vertical) {
+            for ($i = $inicio_fila; $i < $inicio_fila + $longitud; $i++) {
+                $tablero[$i][$inicio_columna] = $barco['codigo'];
+            }
+        } else {
+            for ($j = $inicio_columna; $j < $inicio_columna + $longitud; $j++) {
+                $tablero[$inicio_fila][$j] = $barco['codigo'];
+            }
         }
     }
 }
@@ -103,10 +110,10 @@ for ($i = 0; $i <= $filas; $i++) {
                 if ($j == 0) {
                     echo "<td>" . chr(($i - 1) + 65) . "</td>";
                 } else {
-                    if ($tablero[$i - 1][$j - 1] == 1) {
+                    if ($tablero[$i - 1][$j - 1] !== 0) {
                         echo "<td>X</td>";
                     } else {
-                        echo "<td>{$tablero[$i - 1][$j - 1]}</td>";
+                        echo "<td></td>";
                     }
                 }
             }
@@ -116,5 +123,6 @@ for ($i = 0; $i <= $filas; $i++) {
 }
 
 echo '</table>';
+
 
 ?>
