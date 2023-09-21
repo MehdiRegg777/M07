@@ -113,4 +113,7 @@ for ($i = 0; $i <= $filas; $i++) {
 }
 
 echo '</table>';
+
+//print_r($tablero);
+
 ?>
