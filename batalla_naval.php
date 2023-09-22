@@ -48,7 +48,12 @@ function puede_colocar_barco($tablero, $barco, $inicio_fila, $inicio_columna, $p
                 ($i > 0 && $tablero[$i - 1][$inicio_columna] != 0) ||
                 ($i < $filas - 1 && $tablero[$i + 1][$inicio_columna] != 0) ||
                 ($inicio_columna > 0 && $tablero[$i][$inicio_columna - 1] != 0) ||
-                ($inicio_columna < $columnas - 1 && $tablero[$i][$inicio_columna + 1] != 0)
+                ($inicio_columna < $columnas - 1 && $tablero[$i][$inicio_columna + 1] != 0) ||
+                //Verificar en diagonal (EXTRA):
+                ($i > 0 && $inicio_columna > 0 && $tablero[$i - 1][$inicio_columna - 1] != 0) || 
+                ($i > 0 && $inicio_columna < $columnas - 1 && $tablero[$i - 1][$inicio_columna + 1] != 0) || 
+                ($i < $filas - 1 && $inicio_columna > 0 && $tablero[$i + 1][$inicio_columna - 1] != 0) ||
+                ($i < $filas - 1 && $inicio_columna < $columnas - 1 && $tablero[$i + 1][$inicio_columna + 1] != 0) 
             ) {
                 return false;
             }
@@ -66,7 +71,12 @@ function puede_colocar_barco($tablero, $barco, $inicio_fila, $inicio_columna, $p
                 ($j > 0 && $tablero[$inicio_fila][$j - 1] != 0) ||
                 ($j < $columnas - 1 && $tablero[$inicio_fila][$j + 1] != 0) ||
                 ($inicio_fila > 0 && $tablero[$inicio_fila - 1][$j] != 0) ||
-                ($inicio_fila < $filas - 1 && $tablero[$inicio_fila + 1][$j] != 0)
+                ($inicio_fila < $filas - 1 && $tablero[$inicio_fila + 1][$j] != 0) ||
+                //Verificar en diagonal (EXTRA):
+                ($j > 0 && $inicio_fila > 0 && $tablero[$j - 1][$inicio_fila - 1] != 0) || 
+                ($j > 0 && $inicio_fila < $filas - 1 && $tablero[$j - 1][$inicio_fila + 1] != 0) || 
+                ($j < $columnas - 1 && $inicio_fila > 0 && $tablero[$j + 1][$inicio_fila - 1] != 0) || 
+                ($j < $columnas - 1 && $inicio_fila < $filas - 1 && $tablero[$j + 1][$inicio_fila + 1] != 0) 
             ) {
                 return false;
             }
