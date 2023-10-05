@@ -7,6 +7,9 @@
     .barcos {
         background-color: yellow;
     }
+    .oceano {
+        background-color: #4ec1d9;
+    }
 </style>
 
 <?php
@@ -113,7 +116,7 @@ for ($i = 0; $i <= $filas; $i++) {
                     if ($tablero[$i - 1][$j - 1] == 1) {
                         echo "<td class='barcos'>X</td>";
                     } else {
-                        echo "<td></td>";
+                        echo "<td class='oceano'></td>";
                     }
                 }
             }
